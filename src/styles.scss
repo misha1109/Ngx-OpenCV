@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif !important;
+}
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+h5 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 20px;
+  background-color: #FFCA28;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+}
+
+.mat-progress-spinner {
+  margin: 50px auto 0;
+}
+
+.mat-card-header {
+  justify-content: center;
+}
+.mat-card {
+  margin: auto;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.modal-footer {
+  justify-content: center;
+  font-weight: bold;
+}
