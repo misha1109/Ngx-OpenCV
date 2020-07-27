@@ -27,7 +27,8 @@
       <ng-template matStepLabel>Upload Image</ng-template>
       <div class="input-wrapper">
         <input class="inputfile" mat-input id="file" name="file" type="file" (change)="imgLoaded($event)"
-               accept="image/x-png,image/gif,image/jpeg"
+               [accept]="supportedFormats"
+               (error)="inputError($event)"
         />
         <label for="file">Click To Choose Image</label>
       </div>

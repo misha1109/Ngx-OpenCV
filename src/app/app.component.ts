@@ -2,6 +2,7 @@ import {AfterViewChecked, Component, ViewChild} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {MatStepper} from '@angular/material/stepper';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,7 @@ export class AppComponent implements AfterViewChecked {
   showLink: boolean;
   cv: any;
   toolsApplied: any = [];
+  supportedFormats = 'image/x-png,image/gif,image/jpeg, image/bmp, image/jpg, image/jpeg, image/png';
   tools = {
     Histogram: {
       Histogram: {
@@ -187,7 +189,8 @@ export class AppComponent implements AfterViewChecked {
   };
   constructor(
     private sanitizer: DomSanitizer,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private snackBar: MatSnackBar
   ) {}
   ngAfterViewChecked() {
     try {
@@ -197,12 +200,18 @@ export class AppComponent implements AfterViewChecked {
     }
   }
   async imgLoaded(event) {
-    this.toolsApplied = [];
-    this.originalImage = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(event.target.files[0]));
-    this.modifiedImage = this.originalImage;
-    this.originalUrl = URL.createObjectURL(event.target.files[0]);
-    await this.setOriginal( URL.createObjectURL(event.target.files[0]));
-    this.myStepper.next();
+    const file = event.target.files[0];
+    if ( this.supportedFormats.includes( file.type ) ) {
+      this.toolsApplied = [];
+      this.originalImage = this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(event.target.files[0]));
+      this.modifiedImage = this.originalImage;
+      this.originalUrl = URL.createObjectURL(event.target.files[0]);
+      await this.setOriginal( URL.createObjectURL(event.target.files[0]));
+      this.myStepper.next();
+    } else {
+      console.log('else');
+      this.openSnackBar(' Format Is Not Supported ');
+    }
   }
   setOriginal(src) {
     return new Promise( (res, rej) => {
@@ -286,5 +295,11 @@ export class AppComponent implements AfterViewChecked {
     } else {
       return `with: ${reason}`;
     }
+  }
+  openSnackBar(message: string) {
+    this.snackBar.open(message, null, {
+      duration: 5000,
+      verticalPosition: 'top'
+    });
   }
 }

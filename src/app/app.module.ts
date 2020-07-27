@@ -9,6 +9,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatCardModule} from "@angular/material/card";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatFormFieldModule,
     MatProgressSpinnerModule,
     MatCardModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
